@@ -1,3 +1,5 @@
 # usePopcorn
 
-## React movie app | Jonas Schmedtmann tutorial
+## React movie app
+
+_Jonas Schmedtmann tutorial_
