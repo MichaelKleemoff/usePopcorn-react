@@ -104,6 +104,7 @@ function Main() {
 	return (
 		<main className='main'>
 			<ListBox />
+			<WatchedBox />
 		</main>
 	);
 }
