@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+import { useState } from 'react';
+
 const containerStyle = {
 	display: 'flex',
 	alignItems: 'center',
@@ -15,6 +17,8 @@ const textStyle = {
 };
 
 const StarRating = ({ maxRating = 5 }) => {
+	const [rating, setrating] = useState(0);
+
 	return (
 		<div style={containerStyle}>
 			<div style={starContainerStyle}>
