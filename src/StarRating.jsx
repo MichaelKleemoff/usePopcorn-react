@@ -11,11 +11,6 @@ const starContainerStyle = {
 	display: 'flex',
 };
 
-const textStyle = {
-	lineHeight: '1',
-	margin: '0',
-};
-
 const StarRating = ({ maxRating = 5, color = '#fcc419', size = 48 }) => {
 	const [rating, setRating] = useState(0);
 	const [tempRating, setTempRating] = useState(0);
@@ -23,6 +18,13 @@ const StarRating = ({ maxRating = 5, color = '#fcc419', size = 48 }) => {
 	function handleRating(rating) {
 		setRating(rating + 1);
 	}
+
+	const textStyle = {
+		lineHeight: '1',
+		margin: '0',
+		color,
+		size,
+	};
 
 	return (
 		<div style={containerStyle}>
