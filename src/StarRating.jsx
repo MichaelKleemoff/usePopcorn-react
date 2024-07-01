@@ -23,7 +23,7 @@ const StarRating = ({ maxRating = 5, color = '#fcc419', size = 48 }) => {
 		lineHeight: '1',
 		margin: '0',
 		color,
-		size,
+		fontSize: size,
 	};
 
 	return (
