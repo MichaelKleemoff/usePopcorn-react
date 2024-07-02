@@ -25,6 +25,7 @@ const StarRating = ({
 
 	function handleRating(rating) {
 		setRating(rating + 1);
+		onSetRating(rating + 1);
 	}
 
 	const textStyle = {
