@@ -61,6 +61,16 @@ const StarRating = ({
 
 export default StarRating;
 
+StarRating.propTypes = {
+	maxRating: PropTypes.number,
+	color: PropTypes.string,
+	size: PropTypes.number,
+	className: PropTypes.string,
+	messages: PropTypes.array,
+	defaultRating: PropTypes.number,
+	onSetRating: PropTypes.func,
+};
+
 function Star({ onRating, full, onHoverIn, onHoverOut, color, size }) {
 	const starStyle = {
 		width: `${size}px`,
@@ -105,6 +115,15 @@ function Star({ onRating, full, onHoverIn, onHoverOut, color, size }) {
 		</span>
 	);
 }
+
+Star.propTypes = {
+	onRating: PropTypes.func,
+	full: PropTypes.bool,
+	onHoverIn: PropTypes.func,
+	onHoverOut: PropTypes.func,
+	color: PropTypes.string,
+	size: PropTypes.number,
+};
 
 /*
 FULL STAR
