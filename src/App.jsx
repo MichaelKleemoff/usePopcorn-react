@@ -58,7 +58,7 @@ export default function App() {
 	const [watched, setWatched] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState('');
-	const query = 'chookie';
+	const query = 'The Last Temptation of Christ';
 
 	useEffect(() => {
 		async function fetchMovies() {
@@ -68,14 +68,14 @@ export default function App() {
 				const res = await fetch(
 					`http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
 				);
-
 				if (!res.ok)
 					throw new Error('Something went wrong with fetching movies');
 
 				const data = await res.json();
 				if (data.Response === 'False') throw new Error('Movie not found');
+
+				setMovies(data.Search);
 			} catch (err) {
-				console.log(err);
 				console.error(err.message);
 				setError(err.message);
 			} finally {
@@ -93,10 +93,13 @@ export default function App() {
 			</NavBar>
 			<Main>
 				<Box>
-					{/* {isLoading ? <Loader /> : <MovieList movies={movies} />} */}
-					{isLoading && <Loader />}
-					{!isLoading && !error && <MovieList movies={movies} />}
-					{error && <ErrorMessage message={error} />}
+					{isLoading ? (
+						<Loader />
+					) : !isLoading && !error ? (
+						<MovieList movies={movies} />
+					) : (
+						<ErrorMessage message={error} />
+					)}
 				</Box>
 
 				<Box>
