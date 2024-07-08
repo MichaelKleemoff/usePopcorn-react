@@ -92,7 +92,12 @@ export default function App() {
 				<NumResults movies={movies} />
 			</NavBar>
 			<Main>
-				<Box>{isLoading ? <Loader /> : <MovieList movies={movies} />}</Box>
+				<Box>
+					{/* {isLoading ? <Loader /> : <MovieList movies={movies} />} */}
+					{isLoading && <Loader />}
+					{isLoading && !error && <MovieList movies={movies} />}
+					{error && <ErrorMessage message={error} />}
+				</Box>
 
 				<Box>
 					<WatchedSummary watched={watched} />
@@ -105,6 +110,15 @@ export default function App() {
 
 function Loader() {
 	return <p className='loader'>Loading...</p>;
+}
+
+// Presentational commponent for loading errors -
+function ErrorMessage({ message }) {
+	return (
+		<p className='error'>
+			<span>⛔️</span> {message}
+		</p>
+	);
 }
 
 function NavBar({ children }) {
