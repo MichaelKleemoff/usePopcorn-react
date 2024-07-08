@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const tempMovieData = [
 	{
@@ -51,39 +51,9 @@ const tempWatchedData = [
 const average = (arr) =>
 	arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-const KEY = 'ad728d8d';
-
 export default function App() {
-	const [movies, setMovies] = useState([]);
-	const [watched, setWatched] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState('');
-	const query = 'The Last Temptation of Christ';
-
-	useEffect(() => {
-		async function fetchMovies() {
-			// If we throw an error here, we have to wrap all of our code in a `try/catch` block -
-			try {
-				setIsLoading(true);
-				const res = await fetch(
-					`http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
-				);
-
-				if (!res.ok) {
-					throw new Error('Something went wrong with fetching movies');
-				}
-
-				const data = await res.json();
-				setMovies(data.Search);
-				setIsLoading(false);
-			} catch (err) {
-				console.log(err);
-				console.error(err.message);
-				setError(err.message);
-			}
-		}
-		fetchMovies();
-	}, []);
+	const [movies, setMovies] = useState(tempMovieData);
+	const [watched, setWatched] = useState(tempWatchedData);
 
 	return (
 		<>
@@ -92,7 +62,9 @@ export default function App() {
 				<NumResults movies={movies} />
 			</NavBar>
 			<Main>
-				<Box>{isLoading ? <Loader /> : <MovieList movies={movies} />}</Box>
+				<Box>
+					<MovieList movies={movies} />
+				</Box>
 
 				<Box>
 					<WatchedSummary watched={watched} />
@@ -101,10 +73,6 @@ export default function App() {
 			</Main>
 		</>
 	);
-}
-
-function Loader() {
-	return <p className='loader'>Loading...</p>;
 }
 
 function NavBar({ children }) {
