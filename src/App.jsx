@@ -58,7 +58,7 @@ export default function App() {
 	const [watched, setWatched] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState('');
-	const query = 'The Last Temptation of Christ';
+	const query = 'chookie';
 
 	useEffect(() => {
 		async function fetchMovies() {
@@ -69,12 +69,11 @@ export default function App() {
 					`http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
 				);
 
-				if (!res.ok) {
+				if (!res.ok)
 					throw new Error('Something went wrong with fetching movies');
-				}
 
 				const data = await res.json();
-				setMovies(data.Search);
+				if (data.Response === 'False') throw new Error('Movie not found');
 			} catch (err) {
 				console.log(err);
 				console.error(err.message);
