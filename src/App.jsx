@@ -75,11 +75,12 @@ export default function App() {
 
 				const data = await res.json();
 				setMovies(data.Search);
+			} catch (err) {
+				console.log(err);
+				console.error(err.message);
+				setError(err.message);
+			} finally {
 				setIsLoading(false);
-			} catch (error) {
-				console.log(error);
-				console.error(error.message);
-				setError(error.message);
 			}
 		}
 		fetchMovies();
@@ -95,7 +96,7 @@ export default function App() {
 				<Box>
 					{/* {isLoading ? <Loader /> : <MovieList movies={movies} />} */}
 					{isLoading && <Loader />}
-					{isLoading && !error && <MovieList movies={movies} />}
+					{!isLoading && !error && <MovieList movies={movies} />}
 					{error && <ErrorMessage message={error} />}
 				</Box>
 
