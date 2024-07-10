@@ -59,7 +59,7 @@ export default function App() {
 	const [watched, setWatched] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState('');
-	const tempQuery = 'The Last Temptation of Christ';
+	const [selectedId, setSelectedId] = useState(null);
 
 	useEffect(() => {
 		async function fetchMovies() {
