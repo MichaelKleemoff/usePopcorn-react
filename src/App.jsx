@@ -67,7 +67,7 @@ export default function App() {
 			try {
 				setIsLoading(true);
 				const res = await fetch(
-					`http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+					`http://www.omdbapi.com/?apikey=${KEY}&s=${tempQuery}`
 				);
 				if (!res.ok)
 					throw new Error('Something went wrong with fetching movies');
@@ -77,7 +77,6 @@ export default function App() {
 
 				setMovies(data.Search);
 			} catch (err) {
-				console.error(err.message);
 				setError(err.message);
 			} finally {
 				setIsLoading(false);
@@ -89,7 +88,7 @@ export default function App() {
 	return (
 		<>
 			<NavBar>
-				<Search />
+				<Search query={query} setQuery={setQuery} />
 				<NumResults movies={movies} />
 			</NavBar>
 			<Main>
