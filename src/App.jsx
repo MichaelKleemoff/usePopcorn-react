@@ -66,8 +66,11 @@ export default function App() {
 			// If we throw an error here, we have to wrap all of our code in a `try/catch` block -
 			try {
 				setIsLoading(true);
+				// Always reset the error before fetching movies
+				setError('');
+
 				const res = await fetch(
-					`http://www.omdbapi.com/?apikey=${KEY}&s=${tempQuery}`
+					`http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
 				);
 				if (!res.ok)
 					throw new Error('Something went wrong with fetching movies');
@@ -83,7 +86,7 @@ export default function App() {
 			}
 		}
 		fetchMovies();
-	}, []);
+	}, [query]);
 
 	return (
 		<>
