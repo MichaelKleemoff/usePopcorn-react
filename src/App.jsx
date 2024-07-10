@@ -61,6 +61,10 @@ export default function App() {
 	const [error, setError] = useState('');
 	const [selectedId, setSelectedId] = useState(null);
 
+	function handleSelectMovie(id) {
+		setSelectedId(id);
+	}
+
 	useEffect(() => {
 		async function fetchMovies() {
 			// If we throw an error here, we have to wrap all of our code in a `try/catch` block -
@@ -107,7 +111,7 @@ export default function App() {
 					{isLoading ? (
 						<Loader />
 					) : !isLoading && !error ? (
-						<MovieList movies={movies} />
+						<MovieList movies={movies} onSelectMovie={handleSelectMovie} />
 					) : (
 						<ErrorMessage message={error} />
 					)}
@@ -196,19 +200,19 @@ function Box({ children }) {
 	);
 }
 
-function MovieList({ movies }) {
+function MovieList({ movies, onSelectMovie }) {
 	return (
 		<ul className='list'>
 			{movies?.map((movie) => (
-				<Movie key={movie.imdbID} movie={movie} />
+				<Movie key={movie.imdbID} movie={movie} onSelectMovie={onSelectMovie} />
 			))}
 		</ul>
 	);
 }
 
-function Movie({ movie }) {
+function Movie({ movie, onSelectMovie }) {
 	return (
-		<li>
+		<li onClick={() => onSelectMovie(movie.imdbID)}>
 			<img src={movie.Poster} alt={`${movie.Title} poster`} />
 			<h3>{movie.Title}</h3>
 			<div>
