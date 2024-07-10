@@ -54,11 +54,12 @@ const average = (arr) =>
 const KEY = 'ad728d8d';
 
 export default function App() {
+	const [query, setQuery] = useState('');
 	const [movies, setMovies] = useState([]);
 	const [watched, setWatched] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState('');
-	const query = 'The Last Temptation of Christ';
+	const tempQuery = 'The Last Temptation of Christ';
 
 	useEffect(() => {
 		async function fetchMovies() {
@@ -142,9 +143,7 @@ function Logo() {
 	);
 }
 
-function Search() {
-	const [query, setQuery] = useState('');
-
+function Search({ query, setQuery }) {
 	return (
 		<input
 			className='search'
