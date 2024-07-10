@@ -79,6 +79,7 @@ export default function App() {
 				if (data.Response === 'False') throw new Error('Movie not found');
 
 				setMovies(data.Search);
+				console.log(data.Search);
 			} catch (err) {
 				setError(err.message);
 			} finally {
@@ -113,8 +114,14 @@ export default function App() {
 				</Box>
 
 				<Box>
-					<WatchedSummary watched={watched} />
-					<WatchedMoviesList watched={watched} />
+					{selectedId ? (
+						<MovieDetails selectedId={selectedId} />
+					) : (
+						<>
+							<WatchedSummary watched={watched} />
+							<WatchedMoviesList watched={watched} />
+						</>
+					)}
 				</Box>
 			</Main>
 		</>
@@ -214,7 +221,7 @@ function Movie({ movie }) {
 	);
 }
 
-function SelectedMovie({ selectedId }) {
+function MovieDetails({ selectedId }) {
 	return <div className='details'>{selectedId}</div>;
 }
 
