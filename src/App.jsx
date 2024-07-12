@@ -235,6 +235,20 @@ function Movie({ movie, onSelectMovie }) {
 function MovieDetails({ selectedId, onCloseMovie }) {
 	const [movie, setMovie] = useState({});
 
+	// Destructure the 'movie' object -
+	const {
+		Title: title,
+		Year: year,
+		Poster: poster,
+		Runtime: runtime,
+		imdbRating,
+		Plot: plot,
+		Released: released,
+		Actors: actors,
+		Director: director,
+		Genre: genre,
+	} = movie;
+
 	useEffect(() => {
 		async function getMovieDetails() {
 			const res = await fetch(
@@ -242,6 +256,7 @@ function MovieDetails({ selectedId, onCloseMovie }) {
 			);
 			const data = await res.json();
 			setMovie(data);
+			console.log(data);
 		}
 		getMovieDetails();
 	}, []);
