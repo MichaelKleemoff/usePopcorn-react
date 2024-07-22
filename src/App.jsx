@@ -267,6 +267,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
 		};
 
 		onAddWatched(newWatchedMovie);
+		onCloseMovie();
 	}
 
 	useEffect(() => {
