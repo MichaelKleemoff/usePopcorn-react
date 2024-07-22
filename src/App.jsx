@@ -238,7 +238,7 @@ function Movie({ movie, onSelectMovie }) {
 	);
 }
 
-function MovieDetails({ selectedId, onCloseMovie }) {
+function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
 	const [movie, setMovie] = useState({});
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -255,6 +255,19 @@ function MovieDetails({ selectedId, onCloseMovie }) {
 		Director: director,
 		Genre: genre,
 	} = movie;
+
+	function handleAdd() {
+		const newWatchedMovie = {
+			imdbId: selectedId,
+			title,
+			year,
+			poster,
+			imdbRating: Number(imdbRating),
+			runtime: Number(runtime.split(' ').at(0)),
+		};
+
+		onAddWatched(newWatchedMovie);
+	}
 
 	useEffect(() => {
 		async function getMovieDetails() {
