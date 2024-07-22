@@ -260,7 +260,7 @@ function MovieDetails({ selectedId, onCloseMovie }) {
 			console.log(data);
 		}
 		getMovieDetails();
-	}, []);
+	}, [selectedId]);
 
 	return (
 		<div className='details'>
@@ -283,7 +283,9 @@ function MovieDetails({ selectedId, onCloseMovie }) {
 			</header>
 
 			<section>
-				<StarRating />
+				<div className='rating'>
+					<StarRating maxRating={10} size={24} />
+				</div>
 				<p>
 					<em>{plot}</em>
 				</p>
