@@ -70,6 +70,10 @@ export default function App() {
 		setSelectedId(null);
 	}
 
+	function handleAddWatched(movie) {
+		setWatched((watched) => [...watched, movie]);
+	}
+
 	useEffect(() => {
 		async function fetchMovies() {
 			// If we throw an error here, we have to wrap all of our code in a `try/catch` block -
