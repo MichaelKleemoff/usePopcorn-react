@@ -92,7 +92,6 @@ export default function App() {
 				if (data.Response === 'False') throw new Error('Movie not found');
 
 				setMovies(data.Search);
-				console.log(data.Search);
 			} catch (err) {
 				setError(err.message);
 			} finally {
@@ -132,6 +131,7 @@ export default function App() {
 							selectedId={selectedId}
 							onCloseMovie={handleCloseMovie}
 							onAddWatched={handleAddWatched}
+							watched={watched}
 						/>
 					) : (
 						<>
@@ -238,9 +238,12 @@ function Movie({ movie, onSelectMovie }) {
 	);
 }
 
-function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
+function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
 	const [movie, setMovie] = useState({});
 	const [isLoading, setIsLoading] = useState(false);
+	const [userRating, setUserRating] = useState('');
+
+	const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
 
 	// Destructure the 'movie' object -
 	const {
@@ -258,12 +261,13 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
 
 	function handleAdd() {
 		const newWatchedMovie = {
-			imdbId: selectedId,
+			imdbID: selectedId,
 			title,
 			year,
 			poster,
 			imdbRating: Number(imdbRating),
 			runtime: Number(runtime.split(' ').at(0)),
+			userRating,
 		};
 
 		onAddWatched(newWatchedMovie);
@@ -310,11 +314,23 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
 
 					<section>
 						<div className='rating'>
-							<StarRating maxRating={10} size={24} />
+							{!isWatched ? (
+								<>
+									<StarRating
+										maxRating={10}
+										size={24}
+										onSetRating={setUserRating}
+									/>
 
-							<button className='btn-add' onClick={handleAdd}>
-								+ Add to list
-							</button>
+									{userRating > 0 && (
+										<button className='btn-add' onClick={handleAdd}>
+											+ Add to list
+										</button>
+									)}
+								</>
+							) : (
+								<p>You rated this movie</p>
+							)}
 						</div>
 						<p>
 							<em>{plot}</em>
@@ -362,7 +378,7 @@ function WatchedMoviesList({ watched }) {
 	return (
 		<ul className='list'>
 			{watched.map((movie) => (
-				<WatchedMovie key={movie.imdbID} movie={movie} />
+				<WatchedMovie key={crypto.randomUUID()} movie={movie} />
 			))}
 		</ul>
 	);
